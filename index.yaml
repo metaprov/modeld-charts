@@ -1,0 +1,53 @@
+apiVersion: v1
+entries:
+  modeld:
+  - apiVersion: v2
+    appVersion: v0.0.1
+    created: "2020-07-02T02:34:44.803870706Z"
+    description: Machine Learning Operators
+    digest: 52c50539f7ff1cb41ad13e4ea73e1113b727a923ab807118a159cf53811eccf1
+    home: https://modeld.io
+    keywords:
+    - kubernetes
+    - go
+    - golang
+    - ai
+    - machine learning
+    kubeVersion: '>= 1.15.0 < 1.18.0'
+    maintainers:
+    - email: support@modeld.io
+      name: metaprov
+      url: https://groups.google.com/forum/#!forum/modeld-discuss
+    name: modeld
+    sources:
+    - https://github.com/metaprov/modeld
+    type: application
+    urls:
+    - https://github.com/metaprov/modeld-charts/releases/download/modeld-0.1.0/modeld-0.1.0.tgz
+    version: 0.1.0
+  modeld-default-tenant:
+  - apiVersion: v2
+    appVersion: v0.0.1
+    created: "2020-07-02T02:34:44.909714356Z"
+    description: Default Tenant objects for models
+    digest: 18285abc9f2590e390fc787deb9716db8606950714197a6c2a3833be951e8462
+    home: https://modeld.io
+    keywords:
+    - kubernetes
+    - go
+    - golang
+    - ai
+    - machine learning
+    kubeVersion: '>= 1.15.0 < 1.18.0'
+    maintainers:
+    - email: support@modeld.io
+      name: metaprov
+      url: https://groups.google.com/forum/#!forum/modeld-discuss
+    name: modeld-default-tenant
+    sources:
+    - https://github.com/metaprov/modeld
+    type: application
+    urls:
+    - https://github.com/metaprov/modeld-charts/releases/download/modeld-default-tenant-0.1.0/modeld-default-tenant-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-07-02T02:34:44.605597285Z"
