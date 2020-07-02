@@ -1,0 +1,241 @@
+namespace: modeld-system
+
+global:
+  imageRegistry: quay.io
+  pullPolicy: IfNotPresent
+  debug: false
+  cachePath: "/home/modeld/data"
+
+minikube:
+  enabled: true
+
+rbac:
+  create: true
+
+podSecurityPolicy:
+  enabled: false
+
+deployment:
+  updateStrategy:
+      type: Recreate
+
+imagePullSecrets:
+# - name: "image-pull-secret"
+
+apiproxy:
+  name: modeld-apiproxy
+  http:
+    port: 8080
+  image:
+    registry: quay.io
+    repository: metaprov/modeld-api-proxy
+    tag: latest
+  service:
+    type: NodePort
+
+clouds:
+  name: clouds
+  http:
+    port: 8090
+  image:
+      registry: quay.io
+      repository: metaprov/clouds
+      tag: latest
+
+
+apigateway:
+  name: modeld-apigateway
+  image:
+    registry: quay.io
+    repository: metaprov/modeld-api-gateway
+    tag: latest
+  http:
+    port: 8080
+
+
+
+controlplane:
+  name: modeld-controlplane
+  image:
+    registry: quay.io
+    repository: metaprov/modeld-control-plane
+    tag: latest
+  http:
+    port: 8080
+
+
+dataplane:
+  name: model-dataplane
+  image:
+    registry: quay.io
+    repository: metaprov/modeld-data-plane
+    tag: latest
+  http:
+    port: 8080
+
+
+datadock:
+  name: modeld-datadock
+  image:
+    registry: quay.io
+    repository: metaprov/modeld-datadock
+    tag: latest
+  http:
+    port: 8095
+  service:
+    type: NodePort
+
+
+
+frontend:
+    name: modeld-frontend
+    image:
+      repository: metaprov/modeld-frontend
+      tag: latest
+      pullPolicy: IfNotPresent
+    http:
+      port: 8080
+    service:
+      type: NodePort
+
+
+publisher:
+  name: modeld-publisher
+  image:
+    repository: metaprov/modeld-publisher
+    tag: latest
+    pullPolicy: IfNotPresent
+  http:
+    port: 8080
+  service:
+    type: ClusterIP
+
+
+ingress:
+  name : modeld-ingress
+  host: modeld.info
+  enabled: true
+  certManager: false
+  tls: false
+
+
+presistence:
+  cachePath: /home/modeld/data
+
+servingcert:
+  name: servingcert
+
+issuer:
+  enabled: true
+  name: issuer
+
+## external resources
+aws:
+  create: false
+  name: default-aws
+  secret:
+    az: amazon-az
+    accessKey: amazon-access-key
+    secretKey: amazon-secret-key
+
+azure:
+  create: false
+  name: default-azure
+  secret:
+    storageAccessKey: test
+    storageAccountName: test
+
+digitalocean:
+  create: false
+  name: default-digitalocean
+  secret:
+    token: do-token
+    spacesAccessSecret: do-spaces-access-secret
+    spacesAccessKey: do-spaces-access-key
+    region: do-region
+
+
+dockerhub:
+  create: false
+  name: default-dockerhub
+  secret:
+    registryHost: dockerhub-registry
+    username: dockerhub-username
+    password: dockerhub-password
+
+email:
+  create: false
+  name: default-email
+  to: email-to
+  host: email-host
+  port: email-port
+  from: email-from
+  secret:
+    username: email-username
+    password: email-password
+
+
+gcp:
+  create: false
+  name: default-gcp
+  secret:
+    az: gcp-az
+    accessKey: gcp-accesskey
+    secretKey: gcp-secret-key
+    keyfile: gcp-keyfile
+    project: gcp-project
+
+github:
+  create: false
+  name: default-github
+  secret:
+    token: github-token
+    username: github-username
+
+
+license:
+  create: false
+  name: default-license
+  secret:
+    key: license
+
+minio:
+  create: false
+  name: default-minio
+  secret:
+    accesskey:
+    secretkey:
+    host: minio-service.default.
+
+slack:
+  create: false
+  name: default-slack
+  webhook: hook
+  secret:
+    username: slack-user
+    token: slack-token
+
+lab:
+    create: true
+    name: default-lab
+
+servingsite:
+  create: true
+  name: default-servingsite
+  fdqn: serving.modeld.io
+
+adminaccount:
+  create: true
+  name: default-admin
+
+bucket:
+  create: false
+  name: default-bucket
+
+tenant:
+  create: true
+  name: default-tenant
+
+dataproduct:
+  create: true
+  name: default-data-prodcut

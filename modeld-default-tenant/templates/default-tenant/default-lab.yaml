@@ -1,0 +1,12 @@
+{{ if .Values.lab.create }}
+apiVersion: infra.modeld.io/v1alpha1
+kind: Lab
+metadata:
+  name: default-lab
+  namespace: default-tenant
+spec:
+  tenantRef:
+    name: default-tenant
+    namespace: {{ .Release.Namespace }}
+  gitrepoName: default-github-repo
+{{ end }}

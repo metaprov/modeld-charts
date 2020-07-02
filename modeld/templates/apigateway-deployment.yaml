@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modeld-apigateway
+  namespace: modeld-system
+  labels: {{- include "modeld.apigateway.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.deployment.updateStrategy }}
+  strategy: {{ toYaml .Values.deployment.updateStrategy | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels: {{- include "modeld.apigateway.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "modeld.apigateway.matchLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: modeld-service-account
+      containers:
+        - name: main
+          image: {{ include "apigateway.image" . }}
+          imagePullPolicy: {{ .Values.global.pullPolicy | quote }}
+          env:
+            - name: GRPC_TRACE
+              value: "all"
+            - name:  GRPC_VERBOSITY
+              value: "DEBUG"
+            - name:  GRPC_GO_LOG_VERBOSITY_LEVEL
+              value: "99"
+            - name:  GRPC_GO_LOG_SEVERITY_LEVEL
+              value: "info"
+            - name: GRPC_MAX_SIZE
+              value: "100000000"
+            - name: FAKE
+              value: "false"
+            - name: HOST
+              value:  "0.0.0.0"
+            - name: PORT
+              value: "8080"
+            - name: DEBUG
+              value: "true"
+            - name: ENV
+              value: "dev"
+            - name: CLOUDS_HOST
+              value: "127.0.0.1"
+            - name: CLOUDS_PORT
+              value: "8090"
+            - name: CACHE_PATH
+              value: "/home/modeld/data"
+            - name: DS_HOST
+              value: "{{ include "modeld.dataplane.fullname" . }}"
+            - name: DS_PORT
+              value: "{{ .Values.dataplane.http.port }}"
+          ports:
+            - containerPort: 8080
+              name: apigateway
+            - containerPort: 9090
+              name: metrics
+            - containerPort: 8008
+              name: profiling
+          {{- if .Values.resources }}
+          resources: {{ toYaml .Values.resources | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: "data"
+              mountPath: {{ .Values.global.cachePath }}
+          readinessProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8080"]
+            initialDelaySeconds: 5
+          livenessProbe:
+            exec:
+              command: ["/bin/grpc_health_probe", "-addr=:8080"]
+            initialDelaySeconds: 10
+
+        - name: clouds
+          image: quay.io/metaprov/modeld-clouds
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8090
+              name: http
+            - containerPort: 9090
+              name: metrics
+            - containerPort: 8008
+              name: profiling
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.global.cachePath }}
+          resources:
+            limits:
+              cpu: 50m
+              memory: 30Mi
+            requests:
+              cpu: 50m
+              memory: 20Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 9090
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          env:
+            - name:   HOST
+              value:  "0.0.0.0"
+            - name:   PORT
+              value: "{{ .Values.clouds.http.port }}"
+            - name:   DEBUG
+              value: "false"
+            - name: ENV
+              value: "dev"
+            - name: CACHE_PATH
+              value: {{ .Values.global.cachePath }}
+      volumes:
+        - name : data
+          emptyDir: {}

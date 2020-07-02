@@ -1,0 +1,35 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: TrainerClass
+metadata:
+  name: classical-trainer
+  namespace: modeld-catalog
+spec:
+  image: quay.io/metaprov/modeld-trainer:latest
+  tasks:
+   - binary-classification
+  podTemplate:
+      metadata:
+        labels:
+          app.kubernetes.io/name: modeld-trainer
+      spec:
+        containers:
+          - name: main
+            image: quay.io/metaprov/modeld-trainer:latest
+            imagePullPolicy: IfNotPresent
+            ports:
+              - containerPort: 8080
+            volumeMounts:
+              - name: data
+                mountPath: /home/modeld/data
+          - name: sidecar
+            image: quay.io/metaprov/clouds:latest
+            imagePullPolicy: IfNotPresent
+            ports:
+              - name: http
+                containerPort: 8090
+            volumeMounts:
+              - name: data
+                mountPath: /home/modeld/data
+        volumes:
+          - name: data
+            emptyDir: {}

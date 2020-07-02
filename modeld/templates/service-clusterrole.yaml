@@ -1,0 +1,59 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels: {{- include "modeld.common.metaLabels" . | nindent 4 }}
+  name: service-cluster-role
+  namespace: modeld-system
+rules:
+  - apiGroups: ["catalog.modeld.io"] #
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["data.modeld.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["inference.modeld.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["infra.modeld.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["labeling.modeld.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["training.modeld.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["*"]
+  - apiGroups: ["batch"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["extensions"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["apps"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups: [""]
+    resources: ["*"]
+    verbs: ["*"]
+  - apiGroups:
+      - "extensions"
+      - "networking.k8s.io"
+    resources:
+      - ingresses
+    verbs:
+      - get
+      - create
+      - list
+      - watch
+      - update
+      - delete
+

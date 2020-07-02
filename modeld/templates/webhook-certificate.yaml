@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: serving-cert
+  namespace: modeld-system
+  labels: {{- include "modeld.controlplane.labels" . | nindent 4 }}
+spec:
+  dnsNames:
+    - webhook-service.modeld-system.svc.cluster.local
+    - webhook-service.modeld-system.cluster.local
+    - webhook-service.modeld-system.svc
+    - webhook-service
+  issuerRef:
+    kind: Issuer
+    name: issuer
+  secretName: webhook-secret

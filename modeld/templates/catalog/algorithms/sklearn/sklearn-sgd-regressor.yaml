@@ -1,0 +1,63 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: Algorithm
+metadata:
+  name: sgd-regressor
+  namespace: modeld-catalog
+  labels:
+    app.kubernetes.io/part-of: modeld
+spec:
+  frameworkName: scikit-learn
+  task: regression
+  categoricalParameters:
+    - name: loss
+      enums:
+        - hinge
+        - log
+        - modified_huber
+        - squared_hinge
+        - perceptron
+      defaultValue: log
+    - name: penalty
+      enums:
+        - l1
+        - l2
+        - elasticnet
+      defaultValue: l2
+    - name: learning_rate
+      enums:
+        - optimal
+        - invscaling
+        - constant
+      defaultValue: invscaling
+  floatParameters:
+      - name: alpha
+        type: float
+        minimum: 1e-7
+        maximum: 1e-1
+        log: True
+        defaultValue: 0.0001
+      - name: l1_ratio
+        minimum: 1e-9
+        maximum:  1
+        log: True
+        defaultValue: 0.15
+      - name: tol
+        minimum:  1e-5
+        maximum:  1e-1
+        log: True
+        defaultValue: 1e-4
+      - name: epsilon
+        minimum: 1e-5
+        maximum: 1e-1
+        defaultValue: 1e-4
+        log: True
+      - name: eta0
+        type: float
+        min:   1e-7
+        max:   1e-1,
+        defaultValue: 0.01
+        log: True
+      - name: power_t
+        min: 1e-5
+        max:  1,
+        default_value: 0.5

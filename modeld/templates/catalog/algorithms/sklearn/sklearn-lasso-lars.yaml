@@ -1,0 +1,10 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: Algorithm
+metadata:
+  name: lasso-lars
+  namespace: modeld-catalog
+  labels:
+    app.kubernetes.io/part-of: modeld
+spec:
+  frameworkName: scikit-learn
+  task: regression

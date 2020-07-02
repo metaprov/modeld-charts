@@ -1,0 +1,34 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: Algorithm
+metadata:
+  name: linear-svc-classifier
+  namespace: modeld-catalog
+  labels:
+    app.kubernetes.io/part-of: modeld
+spec:
+  frameworkName: scikit-learn
+  task: binary-classification
+  catagoricalParameters:
+    - name: penalty
+      enums:
+      -  l1
+      -  l2
+      defaultValue: l2
+    - name: loss
+      enums:
+        - hinge
+        - squared_hinge
+      defaultValue: squared_hinge
+  floatParameters:
+    - name: tol
+      type: float
+      minimum: 1e-5
+      maximum: 1e-1
+      defaultValue: 1e-4
+      log: True
+    - name: C
+      type: float
+      minimum: 0.03125
+      maximum: 32768
+      defaultValue: 1.0
+      log: True

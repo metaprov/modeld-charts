@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: modeld-control-plane-webhook
+    app.kubernetes.io/part-of: modeld
+  name: webhook-service
+  namespace: modeld-system
+spec:
+  ports:
+    - name: webhook
+      protocol: TCP
+      port: 443
+      targetPort: 9443
+  selector:  {{- include "modeld.controlplane.matchLabels" . | nindent 4 }}

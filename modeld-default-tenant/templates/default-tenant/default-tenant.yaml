@@ -1,0 +1,17 @@
+{{ if .Values.tenant.create }}
+apiVersion: infra.modeld.io/v1alpha1
+kind: Tenant
+metadata:
+  name: default-tenant
+  namespace: {{ .Release.Namespace }}
+spec:
+  defaultLabRef:
+      name: default-lab
+      namespace: default-tenant
+  defaultServingSiteRef:
+      name: default-servingsite
+      namespace: default-tenant
+  adminRef:
+      name: {{ template "modeld.fullname" . }}-{{ .Values.adminaccount.name }}
+      namespace: default-tenant
+{{ end }}

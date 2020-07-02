@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: modeld-datadock-service
+  namespace: modeld-system
+  labels: {{- include "modeld.datadock.labels" . | nindent 4 }}
+spec:
+  ports:
+    - name: datadock
+      port: {{ .Values.datadock.http.port }}
+      targetPort: datadock
+  selector: {{- include "modeld.datadock.matchLabels" . | nindent 4 }}
