@@ -537,6 +537,20 @@ spec:
                             type: string
                         type: object
                       spec:
+                        description: MLFramework is the spec for a specific version
+                          of machine learning framework (e.g. tensorflow)
+                        properties:
+                          description:
+                            description: Comments of the framework
+                            type: string
+                          url:
+                            description: Url for the home page of the mlframework
+                            type: string
+                          version:
+                            description: The current version of the mlframework
+                            type: string
+                        type: object
+                      status:
                         description: MLFrameworkStatus defines the observed state
                           of Datacenter.
                         type: object

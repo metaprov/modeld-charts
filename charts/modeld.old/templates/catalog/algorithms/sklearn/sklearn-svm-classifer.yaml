@@ -1,0 +1,41 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: Algorithm
+metadata:
+  name: svm-classifier
+  namespace: modeld-catalog
+  labels:
+    app.kubernetes.io/part-of: modeld
+spec:
+  frameworkName: scikit-learn
+  task: binary-classification
+  floatParameters:
+    - name: C
+      logScale: true
+      low: 0.03125
+      high: 32768
+      defaultValue: 1.0
+    - name: gamma
+      log: true
+      min: 3.0517578125e-05
+      max: 8
+      defaultValue: 0.1
+    - name: tol
+      log: true
+      minValue: 1e-5
+      maxValue: 1e-1,
+  catagoricalParameter:
+    - name: kernel
+      default: rbf
+      enums:
+         - rbf
+         - poly
+         - sigmoid
+  integerParameters:
+    - name: degree
+      min: 2
+      max: 5
+      defaultValue: 3
+    - name : coef0
+      min:  -1
+      max:   1
+      default: 0

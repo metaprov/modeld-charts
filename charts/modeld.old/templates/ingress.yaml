@@ -1,0 +1,37 @@
+{{ if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1beta1 # for versions before 1.14 use extensions/v1beta1
+kind: Ingress
+metadata:
+  name: modeld-ingress
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "modeld.common.metaLabels" . | nindent 4 }}
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    ingress.kubernetes.io/proxy-body-size: 8m
+    nginx.org/proxy-connect-timeout: 30s
+    nginx.org/proxy-read-timeout: 20s
+    nginx.org/client-max-body-size: 50m
+    nginx.ingress.kubernetes.io/cors-allow-headers: "x-user-agent,x-grpc-web,DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization"
+spec:
+  rules:
+    - host: modeld.info
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName:   {{ .Values.frontend.name }}
+              servicePort: {{ .Values.frontend.http.port }}
+          - path: /upload
+            backend:
+              serviceName:  {{ .Values.datadock.name }}
+              servicePort: {{ .Values.datadock.http.port }}
+    - host: api.modeld.info
+      http:
+        paths:
+         - path: /
+           backend:
+              serviceName: {{ .Values.apiproxy.name }}
+              servicePort: {{ .Values.apiproxy.http.port }}
+
+
+ {{ end }}

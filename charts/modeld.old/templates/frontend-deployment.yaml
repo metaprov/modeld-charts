@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modeld-frontend
+  namespace: modeld-system
+  labels: {{- include "modeld.frontend.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.deployment.updateStrategy }}
+  strategy: {{ toYaml .Values.deployment.updateStrategy | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels: {{- include "modeld.frontend.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "modeld.frontend.matchLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: modeld-service-account
+      containers:
+        - name: main
+          image: {{ include "frontend.image" . }}
+          imagePullPolicy: {{ .Values.global.pullPolicy | quote }}
+          ports:
+            - containerPort: 80
+              name: frontend
+            - containerPort: 8008
+              name: profiling
+          {{- if .Values.resources }}
+          resources: {{ toYaml .Values.resources | nindent 12 }}
+          {{- end }}
+
+

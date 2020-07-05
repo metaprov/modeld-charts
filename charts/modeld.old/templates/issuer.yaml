@@ -1,0 +1,9 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: issuer
+  namespace: modeld-system
+  labels: {{- include "modeld.issuer.labels" . | nindent 4 }}
+spec:
+  selfSigned: {}
+

@@ -470,41 +470,54 @@ spec:
               description: This is template for preprocessors for this study
               properties:
                 categorical:
-                  properties:
-                    encoder:
-                      description: Encoder
-                      enum:
-                      - one-hot
-                      - count-freq
-                      - ordinal-encoder
-                      - mean
-                      - target
-                      - woe
-                      - rare-label
-                      - binary
-                      - label
-                      - none
-                      - auto
-                      type: string
-                    imputer:
-                      description: Categorical varaible imputer
-                      enum:
-                      - remove-rows-with-missing-values
-                      - mean
-                      - median
-                      - mode
-                      - arbitrary-number
-                      - end-tail
-                      - random-sample
-                      - add-missing-indication
-                      - iterative
-                      - none
-                      - auto
-                      type: string
-                  type: object
+                  description: One or more categorical pipelines.
+                  items:
+                    properties:
+                      columns:
+                        description: The columns for this pipeline. Use * to denotes
+                          all the columns. Must have at least on value.
+                        items:
+                          type: string
+                        type: array
+                      encoder:
+                        description: CatEncoder
+                        enum:
+                        - one-hot
+                        - count-freq
+                        - ordinal-encoder
+                        - mean
+                        - target
+                        - woe
+                        - rare-label
+                        - binary
+                        - label
+                        - none
+                        - auto
+                        type: string
+                      imputer:
+                        description: Categorical varaible imputer
+                        enum:
+                        - remove-rows-with-missing-values
+                        - mean
+                        - median
+                        - mode
+                        - arbitrary-number
+                        - end-tail
+                        - random-sample
+                        - add-missing-indication
+                        - iterative
+                        - none
+                        - auto
+                        type: string
+                    type: object
+                  type: array
                 datatime:
                   description: Specify the column transformation for datetime columns
                   properties:
+                    columns:
+                      items:
+                        type: string
+                      type: array
                     expand:
                       type: boolean
                     imputer:
@@ -524,47 +537,64 @@ spec:
                       - auto
                       type: string
                   type: object
+                featureSelector:
+                  description: Feature selector
+                  enum:
+                  - select-percentile
+                  - select-kbest
+                  - select-fpr
+                  - select-fdr
+                  - variance-treshold
+                  - none
+                  - auto
+                  type: string
                 numeric:
                   description: Specify the column transformation for numeric columns
-                  properties:
-                    imputer:
-                      description: Numerical varaible imputer
-                      enum:
-                      - remove-rows-with-missing-values
-                      - mean
-                      - median
-                      - mode
-                      - arbitrary-number
-                      - end-tail
-                      - random-sample
-                      - add-missing-indication
-                      - iterative
-                      - none
-                      - auto
-                      type: string
-                    outliers:
-                      description: Outlier varaible imputer
-                      enum:
-                      - trim
-                      - winsorizer
-                      - cap
-                      - zero-code
-                      - none
-                      - auto
-                      type: string
-                    scaler:
-                      description: Scaler varaible imputer
-                      enum:
-                      - standard
-                      - max-abs
-                      - min-max
-                      - normalizer
-                      - robust
-                      - none
-                      - auto
-                      type: string
-                  type: object
-                selector:
+                  items:
+                    properties:
+                      columns:
+                        items:
+                          type: string
+                        type: array
+                      imputer:
+                        description: Numerical varaible imputer
+                        enum:
+                        - remove-rows-with-missing-values
+                        - mean
+                        - median
+                        - mode
+                        - arbitrary-number
+                        - end-tail
+                        - random-sample
+                        - add-missing-indication
+                        - iterative
+                        - none
+                        - auto
+                        type: string
+                      outliers:
+                        description: Outlier varaible imputer
+                        enum:
+                        - trim
+                        - winsorizer
+                        - cap
+                        - zero-code
+                        - none
+                        - auto
+                        type: string
+                      scaler:
+                        description: Scaler varaible imputer
+                        enum:
+                        - standard
+                        - max-abs
+                        - min-max
+                        - normalizer
+                        - robust
+                        - none
+                        - auto
+                        type: string
+                    type: object
+                  type: array
+                reducer:
                   description: Dim reducer
                   enum:
                   - pca
@@ -576,7 +606,13 @@ spec:
                 text:
                   description: Specify the column transformation for text columns
                   properties:
+                    columns:
+                      items:
+                        type: string
+                      type: array
                     embedding:
+                      type: string
+                    encoder:
                       type: string
                     lemma:
                       type: boolean
@@ -767,7 +803,7 @@ spec:
                 encoders:
                   items:
                     description: ==============================================================================
-                      Encoder ==============================================================================
+                      CatEncoder ==============================================================================
                     enum:
                     - one-hot
                     - count-freq

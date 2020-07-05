@@ -1,0 +1,10 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: UserRoleClass
+metadata:
+  name: domain-expert
+  namespace: modeld-catalog
+spec:
+  rules:
+    - apiGroups: [""] # "" indicates the core API group
+      resources: ["pods"]
+      verbs: ["get", "watch", "list"]

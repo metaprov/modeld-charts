@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: modeld-apiproxy
+  namespace: modeld-system
+  labels: {{- include "modeld.apiproxy.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.deployment.updateStrategy }}
+  strategy: {{ toYaml .Values.deployment.updateStrategy | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels: {{- include "modeld.apiproxy.matchLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels: {{- include "modeld.apiproxy.labels" . | nindent 8 }}
+    spec:
+      serviceAccountName: modeld-service-account
+      containers:
+        - name: main
+          image: {{ include "apiproxy.image" . }}
+          imagePullPolicy: {{ .Values.global.pullPolicy | quote }}
+          ports:
+            - containerPort: 8080
+              name: apiproxy
+            - containerPort: 8008
+              name: profiling
+          {{- if .Values.resources }}
+          resources: {{ toYaml .Values.resources | nindent 12 }}
+          {{- end }}
+

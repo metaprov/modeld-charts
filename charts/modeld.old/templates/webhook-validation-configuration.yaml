@@ -1,0 +1,669 @@
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: data-webhook
+  namespace: modeld-system
+  annotations:
+    cert-manager.io/inject-ca-from: modeld-system/serving-cert
+webhooks:
+  - name: corpus.data.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "data.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - corpuses
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-data-modeld-io-v1alpha1-corpus
+      caBundle: CERT
+
+  - name: dataproduct.data.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+        - v1beta1
+        - v1alpha1
+    rules:
+        - apiGroups:
+            - "data.modeld.io"
+          apiVersions:
+            - v1alpha1
+            - v1beta1
+          operations:
+            - CREATE
+            - UPDATE
+          resources:
+            - dataproducts
+    clientConfig:
+        service:
+          namespace: modeld-system
+          name: webhook-service
+          path: /validate-data-modeld-io-v1alpha1-dataproduct
+        caBundle: CERT
+
+  - name: dataproductversion.data.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "data.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - dataproductversions
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-data-modeld-io-v1alpha1-dataproductversion
+      caBundle: CERT
+
+  - name: flatfile.data.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "data.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - flatfiles
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-data-modeld-io-v1alpha1-flatfile
+      caBundle: CERT
+
+  - name: schema.data.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "data.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - schemas
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-data-modeld-io-v1alpha1-schema
+      caBundle: CERT
+
+  - name: tables.data.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "data.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - tables
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-data-modeld-io-v1alpha1-table
+      caBundle: CERT
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: inference-webhook
+  namespace: modeld-system
+  annotations:
+    cert-manager.io/inject-ca-from: modeld-system/serving-cert
+webhooks:
+  - name: prediction.inference.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "inference.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - predictions
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-inference-modeld-io-v1alpha1-prediction
+      caBundle: CERT
+
+  - name: predictor.inference.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "inference.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - predictors
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-inference-modeld-io-v1alpha1-predictor
+      caBundle: CERT
+
+  - name: curtain.inference.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "inference.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - curtains
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-inference-modeld-io-v1alpha1-curtain
+      caBundle: CERT
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: infra-webhook
+  namespace: modeld-system
+  annotations:
+    cert-manager.io/inject-ca-from: modeld-system/serving-cert
+webhooks:
+  - name: account.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - accounts
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-account
+      caBundle: CERT
+
+  - name: credential.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - credentials
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-credential
+      caBundle: CERT
+
+
+  - name: lab.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - labs
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-lab
+      caBundle: CERT
+
+  - name: notifier.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - notifiers
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-notifier
+      caBundle: CERT
+
+  - name: license.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - licenses
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-license
+      caBundle: CERT
+
+
+  - name: servingsite.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - servingsites
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-servingsite
+      caBundle: CERT
+
+  - name: tenant.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - tenants
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-tenant
+      caBundle: CERT
+
+  - name: virtualbucket.infra.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "infra.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - virtualbuckets
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-infra-modeld-io-v1alpha1-virtualbucket
+      caBundle: CERT
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: training-webhook
+  namespace: modeld-system
+  annotations:
+    cert-manager.io/inject-ca-from: modeld-system/serving-cert
+webhooks:
+  - name: model.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - models
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-model
+      caBundle: CERT
+
+  - name: notebook.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - notebooks
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-notebook
+      caBundle: CERT
+
+  - name: notebookrun.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - notebookruns
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-notebookrun
+      caBundle: CERT
+
+  - name: pipeline.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - pipelines
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-pipeline
+      caBundle: CERT
+
+  - name: pipelinerun.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - pipelineruns
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-pipelinerun
+      caBundle: CERT
+
+  - name: pipelinetrigger.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - pipelinetrigger
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-pipelinetrigger
+      caBundle: CERT
+
+
+  - name: study.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - studies
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-study
+      caBundle: CERT
+
+  - name: trainer.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - trainers
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-trainer
+      caBundle: CERT
+
+
+  - name: automlrun.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - automlruns
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-automlrun
+      caBundle: CERT
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: report-webhook
+  namespace: modeld-system
+  annotations:
+    cert-manager.io/inject-ca-from: modeld-system/serving-cert
+webhooks:
+  - name: report.training.modeld.io
+    failurePolicy: Fail
+    admissionReviewVersions:
+      - v1beta1
+      - v1alpha1
+    rules:
+      - apiGroups:
+          - "training.modeld.io"
+        apiVersions:
+          - v1alpha1
+          - v1beta1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - reports
+    clientConfig:
+      service:
+        namespace: modeld-system
+        name: webhook-service
+        path: /validate-training-modeld-io-v1alpha1-report
+      caBundle: CERT
+

@@ -1,0 +1,112 @@
+namespace: modeld-system
+
+## external resources
+aws:
+  create: false
+  name: default-aws
+  secret:
+    az: amazon-az
+    accessKey: amazon-access-key
+    secretKey: amazon-secret-key
+
+azure:
+  create: false
+  name: default-azure
+  secret:
+    storageAccessKey: test
+    storageAccountName: test
+
+digitalocean:
+  create: false
+  name: default-digitalocean
+  secret:
+    token: do-token
+    spacesAccessSecret: do-spaces-access-secret
+    spacesAccessKey: do-spaces-access-key
+    region: do-region
+
+
+dockerhub:
+  create: false
+  name: default-dockerhub
+  secret:
+    registryHost: dockerhub-registry
+    username: dockerhub-username
+    password: dockerhub-password
+
+email:
+  create: true
+  name: default-email
+  to: email-to
+  host: email-host
+  port: 5437
+  from: email-from
+  secret:
+    username: email-username
+    password: email-password
+
+
+gcp:
+  create: false
+  name: default-gcp
+  secret:
+    az: gcp-az
+    accessKey: gcp-accesskey
+    secretKey: gcp-secret-key
+    keyfile: gcp-keyfile
+    project: gcp-project
+
+github:
+  create: false
+  name: default-github
+  secret:
+    token: github-token
+    username: github-username
+
+
+license:
+  create: false
+  name: default-license
+  secret:
+    key: license
+
+minio:
+  create: false
+  name: default-minio
+  secret:
+    accesskey:
+    secretkey:
+    host: minio-service.default.
+
+slack:
+  create: false
+  name: default-slack
+  webhook: hook
+  secret:
+    username: slack-user
+    token: slack-token
+
+lab:
+    create: true
+    name: default-lab
+
+servingsite:
+  create: true
+  name: default-servingsite
+  fdqn: serving.modeld.io
+
+adminaccount:
+  create: true
+  name: default-admin
+
+bucket:
+  create: false
+  name: default-bucket
+
+tenant:
+  create: true
+  name: default-tenant
+
+dataproduct:
+  create: true
+  name: default-data-prodcut

@@ -1,0 +1,54 @@
+{{ if .Values.digitalocean.create }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-digitalocean-secret
+  namespace: default-tenant
+  labels: {{- include "modeld.common.metaLabels" . | nindent 4 }}
+type: Opaque
+data:
+  {{- if .Values.digitalocean.secret.token }}
+  digitalocean-token: {{ .Values.digitalocean.secret.token | b64enc | quote }}
+  {{ else }}
+  digitalocean-token: {{ required "digitalocean token is required!" .Values.digitalocean.secret.token }}
+  {{- end }}
+  {{- if .Values.digitalocean.secret.spacesAccessSecret }}
+  digitalocean-spaces-access-secret: {{ .Values.digitalocean.secret.spacesAccessSecret | b64enc | quote }}
+  {{ else }}
+  digitalocean-spaces-access-secret: {{ required "digitalocean spaces access secret is required!" .Values.digitalocean.secret.spacesAccessSecret }}
+  {{- end }}
+  {{- if .Values.digitalocean.secret.spacesAccessKey }}
+  digitalocean-spaces-access-key: {{ .Values.digitalocean.secret.spacesAccessKey | b64enc | quote }}
+  {{ else }}
+  digitalocean-spaces-access-key: {{ required "digitalocean spaces access key is required!" .Values.digitalocean.secret.storageAccountName }}
+  {{- end }}
+  {{- if .Values.digitalocean.secret.region }}
+  digitalocean-region: {{ .Values.digitalocean.secret.region | b64enc | quote }}
+  {{ else }}
+  digitalocean-region: {{ required "digitalocean region is required!" .Values.digitalocean.secret.region }}
+  {{- end }}
+---
+apiVersion: infra.modeld.io/v1alpha1
+kind: Credential
+metadata:
+  name: default-digitalocean-credential
+  namespace: default-tenant
+  labels: {{- include "modeld.common.metaLabels" . | nindent 4 }}
+spec:
+  provider: digitalocean
+  tenantRef:
+    name: default-tenant
+    namespace: modeld-system
+  secretName : default-digitalocean-secret
+---
+apiVersion: infra.modeld.io/v1alpha1
+kind: VirtualBucket
+metadata:
+  name: default-digitalocean-bucket
+  namespace: default-tenant
+spec:
+  tenantRef:
+    namespace: modeld-system
+    name : default-tenant
+  credentialName: default-digitalocean-credential
+{{ end }}

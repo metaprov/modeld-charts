@@ -13,10 +13,10 @@ spec:
   - JSONPath: .spec.bucketName
     name: Bucket
     type: string
-  - JSONPath: .spec.gitRepoName
+  - JSONPath: .spec.gitRepo.url
     name: Git Repo
     type: string
-  - JSONPath: .spec.imageRepoName
+  - JSONPath: .spec.imageRepo.url
     name: Image Repo
     type: string
   - JSONPath: .spec.task
@@ -294,7 +294,7 @@ spec:
               type: string
             gitRepo:
               properties:
-                secretName:
+                credentialName:
                   description: Must provide the credential name to access the git
                     repo.
                   type: string
@@ -306,9 +306,9 @@ spec:
               description: ImageRepoName is the image repository that stores the models
                 images for the product versions Required.
               properties:
-                secretName:
+                credentialName:
                   description: Must provide the credential name to access the registry
-                    If the crednetial are empty, the system will not push images.
+                    If the credential are empty, the system will not push images.
                   type: string
                 url:
                   description: This is a required file The default value is docker/productname

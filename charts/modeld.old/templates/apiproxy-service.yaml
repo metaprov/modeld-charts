@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: modeld-apiproxy-service
+  namespace: modeld-system
+  labels: {{- include "modeld.apiproxy.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.frontend.service.type }}
+  {{- if and (eq .Values.apiproxy.service.type "LoadBalancer") (not (empty .Values.apiproxy.service.loadBalancerIP)) }}
+  loadBalancerIP: {{ .Values.apiproxy.service.loadBalancerIP }}
+  {{- end }}
+  ports:
+    - name: apiproxy
+      port: {{ .Values.apiproxy.http.port }}
+      targetPort: apiproxy
+      {{- if and (or (eq .Values.apiproxy.service.type "NodePort") (eq .Values.apiproxy.service.type "LoadBalancer")) (not (empty .Values.apiproxy.service.nodePort)) }}
+      nodePort: {{ .Values.apiproxy.service.nodePort }}
+      {{- else if eq .Values.apiproxy.service.type "ClusterIP" }}
+  {{- end }}
+  selector: {{- include "modeld.apiproxy.matchLabels" . | nindent 4 }}

@@ -1,0 +1,34 @@
+{{ if .Values.email.create }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-email-secret
+  namespace: default-tenant
+  labels: {{- include "modeld.common.metaLabels" . | nindent 4 }}
+type: Opaque
+stringData:
+  {{- if .Values.email.secret.username }}
+  email-username: {{ .Values.email.secret.username | b64enc | quote }}
+  {{ else }}
+  email-username: {{ required "email user name is required!" .Values.email.secret.username }}
+  {{- end }}
+
+  {{- if .Values.email.secret.password }}
+  email-password: {{ .Values.email.secret.username | b64enc | quote }}
+  {{ else }}
+  email-password: {{ required "email secret required!" .Values.email.secret.password }}
+  {{- end }}
+---
+apiVersion: infra.modeld.io/v1alpha1
+kind: Credential
+metadata:
+  name: default-email-credential
+  namespace: default-tenant
+  labels: {{- include "modeld.common.metaLabels" . | nindent 4 }}
+spec:
+  provider: email
+  tenantRef:
+    name: default-tenant
+    namespace: modeld-system
+  secretName : default-email-secret
+{{ end }}

@@ -287,6 +287,8 @@ spec:
             archive:
               description: Folder of the actual archive data ref.
               properties:
+                bucketName:
+                  type: string
                 data:
                   description: Data to the full data file (e.g. csv file).
                   type: string
@@ -304,6 +306,7 @@ spec:
                   description: path to the training set
                   type: string
               required:
+              - bucketName
               - data
               - train
               type: object
@@ -328,6 +331,8 @@ spec:
             raw:
               description: Folder of the actual data resides.
               properties:
+                bucketName:
+                  type: string
                 data:
                   description: Data to the full data file (e.g. csv file).
                   type: string
@@ -345,6 +350,7 @@ spec:
                   description: path to the training set
                   type: string
               required:
+              - bucketName
               - data
               - train
               type: object
@@ -366,6 +372,8 @@ spec:
                 from this location into the live location. Raw is initially uploaded
                 to this location.
               properties:
+                bucketName:
+                  type: string
                 data:
                   description: Data to the full data file (e.g. csv file).
                   type: string
@@ -383,6 +391,7 @@ spec:
                   description: path to the training set
                   type: string
               required:
+              - bucketName
               - data
               - train
               type: object
@@ -487,6 +496,10 @@ spec:
                       distinc:
                         format: int32
                         type: integer
+                      ignored:
+                        description: Should this column be ignored, as specified by
+                          the user. This value is derived from the schema
+                        type: boolean
                       importance:
                         description: The feature importance
                         format: float
@@ -519,6 +532,10 @@ spec:
                       name:
                         description: Name is the name of the column
                         type: string
+                      nullable:
+                        description: Is this column is nullable. This value is derived
+                          from the schema.
+                        type: boolean
                       p25:
                         description: Pct25 is the 25 precent point
                         format: float

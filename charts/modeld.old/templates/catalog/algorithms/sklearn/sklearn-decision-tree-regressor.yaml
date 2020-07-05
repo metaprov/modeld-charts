@@ -1,0 +1,31 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: Algorithm
+metadata:
+  name: decision-tree-regressor
+  namespace: modeld-catalog
+  labels:
+    app.kubernetes.io/part-of: modeld
+spec:
+  task: regression
+  frameworkName: scikit-learn
+  categoricalParameters:
+    - name:  criterion
+      type:  categorical
+      enums:
+        - gini
+        - entropy
+      defaultValue:  gini
+  integerParameters:
+    - name:   min_samples_split
+      type: number
+      domain: integer
+      minValue: 2
+      maxValue: 2
+      defaultValue: 2
+
+
+
+
+
+
+

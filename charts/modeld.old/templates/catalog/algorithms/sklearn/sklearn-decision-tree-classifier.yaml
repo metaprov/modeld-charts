@@ -1,0 +1,31 @@
+apiVersion: catalog.modeld.io/v1alpha1
+kind: Algorithm
+metadata:
+  name: decision-tree-classifier
+  namespace: modeld-catalog
+  labels:
+    app.kubernetes.io/part-of: modeld
+spec:
+  task: binary-classification
+  frameworkName: scikit-learn
+  integerParameters:
+    - name:   min_samples_split
+      type: number
+      domain: integer
+      minimum: 2
+      maximum: 2
+      defaultValue: 2
+  catagoricalParameters:
+    - name:  criterion
+      type:  categorical
+      enums:
+       - gini
+       - entropy
+      defaultValue:  gini
+
+
+
+
+
+
+

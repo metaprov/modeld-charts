@@ -535,6 +535,8 @@ spec:
                     archive:
                       description: Folder of the actual archive data ref.
                       properties:
+                        bucketName:
+                          type: string
                         data:
                           description: Data to the full data file (e.g. csv file).
                           type: string
@@ -552,6 +554,7 @@ spec:
                           description: path to the training set
                           type: string
                       required:
+                      - bucketName
                       - data
                       - train
                       type: object
@@ -577,6 +580,8 @@ spec:
                     raw:
                       description: Folder of the actual data resides.
                       properties:
+                        bucketName:
+                          type: string
                         data:
                           description: Data to the full data file (e.g. csv file).
                           type: string
@@ -594,6 +599,7 @@ spec:
                           description: path to the training set
                           type: string
                       required:
+                      - bucketName
                       - data
                       - train
                       type: object
@@ -615,6 +621,8 @@ spec:
                         the data from this location into the live location. Raw is
                         initially uploaded to this location.
                       properties:
+                        bucketName:
+                          type: string
                         data:
                           description: Data to the full data file (e.g. csv file).
                           type: string
@@ -632,6 +640,7 @@ spec:
                           description: path to the training set
                           type: string
                       required:
+                      - bucketName
                       - data
                       - train
                       type: object
