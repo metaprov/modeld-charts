@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: modeld-service-account
-  namespace: modeld-system
-  labels: {{- include "modeld.common.metaLabels" . | nindent 4 }}
-secrets:
-  - name: {{ include "modeld.fullname" . }}

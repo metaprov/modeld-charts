@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: modeld-publisher-sa
-  namespace: modeld-system
-  labels: {{- include "modeld.publisher.labels" . | nindent 4 }}
