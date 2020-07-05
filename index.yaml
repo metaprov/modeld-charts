@@ -3,7 +3,31 @@ entries:
   modeld:
   - apiVersion: v2
     appVersion: v0.0.1
-    created: "2020-07-05T02:43:09.860344052Z"
+    created: "2020-07-05T02:56:01.953898943Z"
+    description: Machine Learning Operators
+    digest: 562317e8b108184aac3504f9e1652954ca8282e178f84a948333d07bdc8afae7
+    home: https://modeld.io
+    keywords:
+    - kubernetes
+    - go
+    - golang
+    - ai
+    - machine learning
+    kubeVersion: '>= 1.15.0 < 1.18.0'
+    maintainers:
+    - email: support@modeld.io
+      name: metaprov
+      url: https://groups.google.com/forum/#!forum/modeld-discuss
+    name: modeld
+    sources:
+    - https://github.com/metaprov/modeld
+    type: application
+    urls:
+    - modeld-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v0.0.1
+    created: "2020-07-05T02:56:01.937682877Z"
     description: Machine Learning Operators
     digest: cf5f5fd624fe209257d1976a8e315cc7533f08b42293ee15956ce8a6579dd33d
     home: https://modeld.io
@@ -28,7 +52,31 @@ entries:
   modeld-default-tenant:
   - apiVersion: v2
     appVersion: v0.0.1
-    created: "2020-07-05T02:43:09.861685253Z"
+    created: "2020-07-05T02:56:01.955706306Z"
+    description: Default Tenant objects for models
+    digest: 11ee5a897bd789f422f69d11883cdc68dce6d4fee2da63b02f8932315750ee2a
+    home: https://modeld.io
+    keywords:
+    - kubernetes
+    - go
+    - golang
+    - ai
+    - machine learning
+    kubeVersion: '>= 1.15.0 < 1.18.0'
+    maintainers:
+    - email: support@modeld.io
+      name: metaprov
+      url: https://groups.google.com/forum/#!forum/modeld-discuss
+    name: modeld-default-tenant
+    sources:
+    - https://github.com/metaprov/modeld
+    type: application
+    urls:
+    - modeld-default-tenant-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: v0.0.1
+    created: "2020-07-05T02:56:01.954824824Z"
     description: Default Tenant objects for models
     digest: 7f3e8d5372c5724dd43ed05a225ca755a2c28e03870d4036082bb758f2425524
     home: https://modeld.io
@@ -50,4 +98,4 @@ entries:
     urls:
     - modeld-default-tenant-0.1.0.tgz
     version: 0.1.0
-generated: "2020-07-05T02:43:09.8174809Z"
+generated: "2020-07-05T02:56:01.912266601Z"
