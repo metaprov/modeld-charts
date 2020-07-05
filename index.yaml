@@ -1,0 +1,53 @@
+apiVersion: v1
+entries:
+  modeld:
+  - apiVersion: v2
+    appVersion: v0.0.1
+    created: "2020-07-05T02:24:05.716712673Z"
+    description: Machine Learning Operators
+    digest: dc68f25d6ba6a0391b35f37d18b24a0333757b1f38ee572eb460f9cfea2e4bf8
+    home: https://modeld.io
+    keywords:
+    - kubernetes
+    - go
+    - golang
+    - ai
+    - machine learning
+    kubeVersion: '>= 1.15.0 < 1.18.0'
+    maintainers:
+    - email: support@modeld.io
+      name: metaprov
+      url: https://groups.google.com/forum/#!forum/modeld-discuss
+    name: modeld
+    sources:
+    - https://github.com/metaprov/modeld
+    type: application
+    urls:
+    - modeld-0.1.0.tgz
+    version: 0.1.0
+  modeld-default-tenant:
+  - apiVersion: v2
+    appVersion: v0.0.1
+    created: "2020-07-05T02:24:05.717890975Z"
+    description: Default Tenant objects for models
+    digest: b5c5ff94d1aba6fb3728d9cdb3fa2f02bdf97ee55f68f4ef0b4b84f37caa2fc1
+    home: https://modeld.io
+    keywords:
+    - kubernetes
+    - go
+    - golang
+    - ai
+    - machine learning
+    kubeVersion: '>= 1.15.0 < 1.18.0'
+    maintainers:
+    - email: support@modeld.io
+      name: metaprov
+      url: https://groups.google.com/forum/#!forum/modeld-discuss
+    name: modeld-default-tenant
+    sources:
+    - https://github.com/metaprov/modeld
+    type: application
+    urls:
+    - modeld-default-tenant-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-07-05T02:24:05.676252108Z"
