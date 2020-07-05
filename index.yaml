@@ -3,9 +3,9 @@ entries:
   modeld:
   - apiVersion: v2
     appVersion: v0.0.1
-    created: "2020-07-05T02:24:05.716712673Z"
+    created: "2020-07-05T02:43:09.860344052Z"
     description: Machine Learning Operators
-    digest: dc68f25d6ba6a0391b35f37d18b24a0333757b1f38ee572eb460f9cfea2e4bf8
+    digest: cf5f5fd624fe209257d1976a8e315cc7533f08b42293ee15956ce8a6579dd33d
     home: https://modeld.io
     keywords:
     - kubernetes
@@ -28,9 +28,9 @@ entries:
   modeld-default-tenant:
   - apiVersion: v2
     appVersion: v0.0.1
-    created: "2020-07-05T02:24:05.717890975Z"
+    created: "2020-07-05T02:43:09.861685253Z"
     description: Default Tenant objects for models
-    digest: b5c5ff94d1aba6fb3728d9cdb3fa2f02bdf97ee55f68f4ef0b4b84f37caa2fc1
+    digest: 7f3e8d5372c5724dd43ed05a225ca755a2c28e03870d4036082bb758f2425524
     home: https://modeld.io
     keywords:
     - kubernetes
@@ -50,4 +50,4 @@ entries:
     urls:
     - modeld-default-tenant-0.1.0.tgz
     version: 0.1.0
-generated: "2020-07-05T02:24:05.676252108Z"
+generated: "2020-07-05T02:43:09.8174809Z"
